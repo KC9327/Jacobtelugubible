@@ -113,7 +113,7 @@
           <h1 class="text-base sm:text-lg font-bold text-amber-900 dark:text-amber-400 leading-tight">
             పరిశుద్ధ జీవ గ్రంథం- వివరణాత్మక శైలి తెలుగు
           </h1>
-          <p class="text-xs text-amber-700/80 dark:text-amber-500/80 font-semibold">కీర్తనలు 121</p>
+          <p id="subHeaderTitle" class="text-xs text-amber-700/80 dark:text-amber-500/80 font-semibold">కీర్తనలు 121</p>
         </div>
       </div>
 
@@ -125,14 +125,8 @@
           <span class="hidden sm:inline" id="audioBtnText">చదువు</span>
         </button>
 
-        <!-- Share App Button -->
-        <button onclick="shareApp()" title="యాప్‌ను షేర్ చేయి" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-amber-100/70 dark:bg-slate-800 hover:bg-amber-200 dark:hover:bg-slate-700 text-amber-900 dark:text-amber-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95 border border-amber-200/50 dark:border-slate-700">
-          <i data-lucide="share-2" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">షేర్</span>
-        </button>
-
         <!-- Copy Text Button -->
-        <button onclick="copyChapter()" title="అధ్యాయం కాపీ చేయి" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-amber-100/70 dark:bg-slate-800 hover:bg-amber-200 dark:hover:bg-slate-700 text-amber-900 dark:text-amber-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95 border border-amber-200/50 dark:border-slate-700">
+        <button onclick="copyCurrentSection()" title="అధ్యాయం కాపీ చేయి" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-amber-100/70 dark:bg-slate-800 hover:bg-amber-200 dark:hover:bg-slate-700 text-amber-900 dark:text-amber-300 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95 border border-amber-200/50 dark:border-slate-700">
           <i data-lucide="copy" class="w-4 h-4"></i>
           <span class="hidden sm:inline">కాపీ</span>
         </button>
@@ -144,18 +138,30 @@
       </div>
     </div>
 
-    <!-- Font Size Bar -->
-    <div class="bg-amber-100/40 dark:bg-slate-900/80 border-t border-amber-200/40 dark:border-slate-800 px-4 py-1.5">
-      <div class="max-w-3xl mx-auto flex items-center justify-between text-xs">
-        <div class="flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-300">
-          <i data-lucide="type" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i>
-          <span>అక్షరాల పరిమాణం:</span>
+    <!-- Navigation Tabs & Font Size Bar -->
+    <div class="bg-amber-100/40 dark:bg-slate-900/80 border-t border-amber-200/40 dark:border-slate-800 px-4 py-2">
+      <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+        <!-- Switch Chapter Tabs -->
+        <div class="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-xl border border-amber-200 dark:border-slate-700 shadow-sm w-full sm:w-auto">
+          <button id="tabPsalm" onclick="switchSection('psalm')" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-bold transition bg-amber-600 text-white shadow-sm">
+            కీర్తనలు 121
+          </button>
+          <button id="tabExodus" onclick="switchSection('exodus')" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-bold transition text-slate-700 dark:text-slate-300 hover:bg-amber-100 dark:hover:bg-slate-700">
+            నేటి వాగ్దానం (నిర్గమ 23:25-26)
+          </button>
         </div>
-        
-        <div class="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-lg border border-amber-200 dark:border-slate-700 shadow-sm">
-          <button onclick="adjustFontSize(-1)" class="w-7 h-7 flex items-center justify-center rounded hover:bg-amber-100 dark:hover:bg-slate-700 font-extrabold text-slate-800 dark:text-slate-200 active:scale-90" title="చిన్నది చేయి">A-</button>
-          <button onclick="resetFontSize()" class="px-2 h-7 flex items-center justify-center rounded hover:bg-amber-100 dark:hover:bg-slate-700 font-bold text-xs text-slate-800 dark:text-slate-200 active:scale-90" title="సాధారణ పరిమాణం">A</button>
-          <button onclick="adjustFontSize(1)" class="w-7 h-7 flex items-center justify-center rounded hover:bg-amber-100 dark:hover:bg-slate-700 font-extrabold text-slate-800 dark:text-slate-200 active:scale-90" title="పెద్దది చేయి">A+</button>
+
+        <!-- Font Size Controls -->
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300 hidden sm:flex">
+            <i data-lucide="type" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i>
+            <span>అక్షరాలు:</span>
+          </div>
+          <div class="flex items-center gap-1 bg-white dark:bg-slate-800 p-1 rounded-lg border border-amber-200 dark:border-slate-700 shadow-sm">
+            <button onclick="adjustFontSize(-1)" class="w-7 h-7 flex items-center justify-center rounded hover:bg-amber-100 dark:hover:bg-slate-700 font-extrabold text-slate-800 dark:text-slate-200 active:scale-90" title="చిన్నది చేయి">A-</button>
+            <button onclick="resetFontSize()" class="px-2 h-7 flex items-center justify-center rounded hover:bg-amber-100 dark:hover:bg-slate-700 font-bold text-xs text-slate-800 dark:text-slate-200 active:scale-90" title="సాధారణ పరిమాణం">A</button>
+            <button onclick="adjustFontSize(1)" class="w-7 h-7 flex items-center justify-center rounded hover:bg-amber-100 dark:hover:bg-slate-700 font-extrabold text-slate-800 dark:text-slate-200 active:scale-90" title="పెద్దది చేయి">A+</button>
+          </div>
         </div>
       </div>
     </div>
@@ -164,218 +170,191 @@
   <!-- Main Content Body -->
   <main class="max-w-3xl mx-auto px-4 py-6 w-full flex-grow">
 
-    <!-- Header Banner Card -->
-    <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 mb-6 shadow-sm border border-amber-200/80 dark:border-slate-800 text-center relative overflow-hidden">
-      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600"></div>
-      
-      <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 mb-3 border border-amber-200 dark:border-amber-900">
-        పరిశుద్ధ జీవ గ్రంథం- వివరణాత్మక శైలి తెలుగు
-      </span>
-
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
-        కీర్తనలు 121
-      </h2>
-
-      <div class="inline-block text-sm sm:text-base font-semibold text-amber-900 dark:text-amber-300 bg-amber-50/80 dark:bg-slate-800/80 px-4 py-2.5 rounded-xl border border-amber-200/60 dark:border-slate-700 leading-normal">
-        ఆరోహణ కీర్తన <span class="amp-text text-xs sm:text-sm font-normal">[పరిశుద్ధ పట్టణానికి (పరలోక రాజ్యానికి) ప్రయాణించే యాత్రికుల కీర్తన]</span>
-      </div>
-    </div>
-
-    <!-- Verses Container -->
-    <div id="versesContainer" class="space-y-4 text-base sm:text-lg leading-relaxed">
-
-      <!-- Verse 1 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">1</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            నేను సహాయం కోసం పర్వతాల వైపు కన్నులు ఎత్తి ఎదురుచూస్తున్నాను! ఎక్కడ నుండి వస్తుంది అని? 
-            <span class="amp-text">
-              [బలవంతులైన మనుషుల దగ్గర నుండా? లోక అధికారుల నుండా? లోకసంపద నుండా? — 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 146:3', 'రాజులనైనను మనుష్యులనైనను నమ్ముకొనకుడి, వారు రక్షింపజాలనివారు.')">కీ 146:3</span>; 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 48:6–7', 'అక్కడ వణకు వారిని పట్టుకొనెను, ప్రసవించు స్త్రీకి వేదన కలిగినట్లు వారికి వేదన కలిగెను.')">48:6–7</span>; 
-              <span class="ref-link" onclick="openScripture('యిర్మీయా 17:5', 'యెహోవా ఈలాగు సెలవు ఇచ్చుచున్నాడు—నరులను నమ్ముకొనుచు నరశరీరమును తనకు ఆధారముగా చేసుకొనుచు తన హృదయమును యెహోవా మీదనుండి తొలగించుకొనువాడు శాపగ్రస్తుడు.')">యిర్మీ 17:5</span>]
-            </span>
-          </p>
+    <!-- ========================================== -->
+    <!-- SECTION 1: PSALM 121 (కీర్తనలు 121)         -->
+    <!-- ========================================== -->
+    <div id="sectionPsalm" class="space-y-6">
+      <!-- Header Banner Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-amber-200/80 dark:border-slate-800 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600"></div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300 mb-3 border border-amber-200 dark:border-amber-900">
+          పరిశుద్ధ జీవ గ్రంథం- వివరణాత్మక శైలి తెలుగు
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">కీర్తనలు 121</h2>
+        <div class="inline-block text-sm sm:text-base font-semibold text-amber-900 dark:text-amber-300 bg-amber-50/80 dark:bg-slate-800/80 px-4 py-2.5 rounded-xl border border-amber-200/60 dark:border-slate-700 leading-normal">
+          ఆరోహణ కీర్తన <span class="amp-text text-xs sm:text-sm font-normal">[పరిశుద్ధ పట్టణానికి (పరలోక రాజ్యానికి) ప్రయాణించే యాత్రికుల కీర్తన]</span>
         </div>
       </div>
 
-      <!-- Verse 2 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">2</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            <span class="amp-text">[కాదు!]</span> 
-            నా సహాయం భూమిని ఆకాశమును 
-            <span class="amp-text">
-              [తన మాట ద్వారా — 
-              <span class="ref-link" onclick="openScripture('ఆదికాండము 1:6-10', 'దేవుడు—జలముల మధ్యన ఒక విశాలము కలిగి ఆ జలములను ఈ జలములను వేరుచేయును గాక అని సెలవిచ్చెను... దేవుడు ఆ విశాలమునకు ఆకాశమని పేరు పెట్టెను.')">ఆది 1:6-10</span>; 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 33:6-9', 'యెహోవా వాక్యముచేత ఆకాశములు సృష్టింపబడెను, ఆయన నోటి ఊపిరిచేత వాటి సర్వసమూహము సృష్టింపబడెను.')">కీ 33:6-9</span>]
-            </span> 
-            సృష్టించిన 
-            <span class="amp-text">[నా తండ్రియైన]</span> 
-            యెహోవా నుండే.
-          </p>
+      <!-- Verses Container -->
+      <div id="versesPsalm" class="space-y-4 text-base sm:text-lg leading-relaxed">
+        <!-- V1 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">1</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              నేను సహాయం కోసం పర్వతాల వైపు కన్నులు ఎత్తి ఎదురుచూస్తున్నాను! ఎక్కడ నుండి వస్తుంది అని? 
+              <span class="amp-text">[బలవంతులైన మనుషుల దగ్గర నుండా? లోక అధికారుల నుండా? లోకసంపద నుండా? — <span class="ref-link" onclick="openScripture('కీర్తనలు 146:3', 'రాజులనైనను మనుష్యులనైనను నమ్ముకొనకుడి, వారు రక్షింపజాలనివారు.')">కీ 146:3</span>; <span class="ref-link" onclick="openScripture('యిర్మీయా 17:5', 'యెహోవా ఈలాగు సెలవు ఇచ్చుచున్నాడు—నరులను నమ్ముకొనుచు నరశరీరమును తనకు ఆధారముగా చేసుకొనుచు తన హృదయమును యెహోవా మీదనుండి తొలగించుకొనువాడు శాపగ్రస్తుడు.')">యిర్మీ 17:5</span>]</span>
+            </p>
+          </div>
+        </div>
+        <!-- V2 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">2</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              <span class="amp-text">[కాదు!]</span> నా సహాయం భూమిని ఆకాశమును <span class="amp-text">[తన మాట ద్వారా — <span class="ref-link" onclick="openScripture('ఆదికాండము 1:6-10', 'దేవుడు—జలముల మధ్యన ఒక విశాలము కలిగి ఆ జలములను ఈ జలములను వేరుచేయును గాక అని సెలవిచ్చెను.')">ఆది 1:6-10</span>; <span class="ref-link" onclick="openScripture('కీర్తనలు 33:6-9', 'యెహోవా వాక్యముచేత ఆకాశములు సృష్టింపబడెను.')">కీ 33:6-9</span>]</span> సృష్టించిన <span class="amp-text">[నా తండ్రియైన]</span> యెహోవా నుండే.
+            </p>
+          </div>
+        </div>
+        <!-- V3 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">3</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              నా అడుగులు తడబడకుండా కాపాడుతాడు; నన్ను కాపాడేవాడు నిద్రపోడు. <span class="amp-text">[ఆయన నన్ను ఎల్లప్పుడూ కనిపెట్టుకొని ఉంటాడు]</span>
+            </p>
+          </div>
+        </div>
+        <!-- V4 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">4</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              ఇదిగో! ఇశ్రాయేలును కాపాడువాడు కన్ను రెప్ప వెయ్యడు, నిద్రపోడు (యెష 40:28). <span class="amp-text">[తన నిబంధన ప్రజలను తన కనుపాపలా కాపాడే దేవుడు (<span class="ref-link" onclick="openScripture('ద్వితీయోపదేశకాండము 32:10', 'తన కనుపాపవలె వానిని కాపాడెను.')">ద్వితీ 32:10</span>), తాను ఇచ్చిన మాటలను ఎన్నటికి మరువనివాడు - <span class="ref-link" onclick="openScripture('యెషయా 49:15', 'వారు మరచినను నేను నిన్ను మరవను.')">యెష 49:15</span>]</span>.
+            </p>
+          </div>
+        </div>
+        <!-- V5 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">5</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              యెహోవాయే నన్ను కాపాడుతాడు, నా కుడిచేతి ప్రక్కన యెహోవాయే నాకు ఆశ్రయముగా ఉన్నాడు 
+              <button onclick="openFootnote('అ')" class="inline-flex items-center justify-center px-2 py-0.5 mx-1 rounded-md bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-sm active:scale-95 transition" title="పాదనక వివరణ అ చూడండి">[అ]</button>
+              <span class="amp-text">[<span class="ref-link" onclick="openScripture('కీర్తనలు 16:8', 'ఆయన నా కుడిపార్శ్వమందు ఉన్నాడు గనుక నేను కదల్చబడను.')">కీ 16:8</span>; <span class="ref-link" onclick="openScripture('యెషయా 25:4', 'నీవు బీదలకు ఆశ్రయముగాను ఉన్నావు.')">యెష 25:4</span>]</span>
+            </p>
+          </div>
+        </div>
+        <!-- V6 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">6</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              పగళ్ళు ఎండ దెబ్బ నాకు తగలకుండా, రాత్రివేళ వెన్నెల దెబ్బ <span class="amp-text">[చీకటి భయాలు, మానసిక వేదనలు, అనారోగ్యం]</span> నన్ను తాకకుండా ఆయన కాపాడుతాడు! 
+              <button onclick="openFootnote('ఆ')" class="inline-flex items-center justify-center px-2 py-0.5 mx-1 rounded-md bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-sm active:scale-95 transition" title="పాదనక వివరణ ఆ చూడండి">[ఆ]</button>
+              <span class="amp-text">[<span class="ref-link" onclick="openScripture('నిర్గమకాండము 13:21-22', 'యెహోవా పగటివేళ మేఘస్తంభములోను, రాత్రివేళ అగ్నిస్తంభములోను ఉండి నడిపించెను.')">నిర్గ 13:21-22</span>; <span class="ref-link" onclick="openScripture('యెషయా 49:10', 'ఎండదెబ్బయైనను వారికి తగలదు.')">యెష 49:10</span>]</span>
+            </p>
+          </div>
+        </div>
+        <!-- V7 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">7</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              ప్రతీ ఆపద నుండి <span class="amp-text">[నా తండ్రి]</span> యెహోవాయే నన్ను కాపాడుతాడు; ఆయన నా ప్రాణమును అత్యంత భద్రముగా కాపాడుతాడు! <span class="amp-text">[<span class="ref-link" onclick="openScripture('కీర్తనలు 91:9-10', 'నీకు ఏ హానియు రాదు.')">కీ 91:9-10</span>; <span class="ref-link" onclick="openScripture('యోహాను 10:28-29', 'ఎవడును వాటిని నా చేతిలో నుండి అపహరింపడు.')">యోహాను 10:28-29</span>]</span>
+            </p>
+          </div>
+        </div>
+        <!-- V8 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">8</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              ఇప్పటి నుండి నిరంతరము - <span class="amp-text">[యుగయుగములు]</span> నా ప్రయాణం అంతటిలోని నేను వెళ్ళు మొదలుకొని తిరిగి వచ్చు వరకు యెహోవాయే నన్ను కాపాడును! <span class="amp-text">[<span class="ref-link" onclick="openScripture('ద్వితీయోపదేశకాండము 28:6', 'వెలుపలికి వెళ్లునప్పుడు దీవింపబడుదువు.')">ద్వితీ 28:6</span>; <span class="ref-link" onclick="openScripture('కీర్తనలు 113:2', 'ఇది మొదలుకొని యుగయుగములు యెహోవా నామము సన్నుతింపబడును.')">కీ 113:2</span>]</span>
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Verse 3 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">3</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            నా అడుగులు తడబడకుండా కాపాడుతాడు; నన్ను కాపాడేవాడు నిద్రపోడు.
-            <span class="amp-text">[ఆయన నన్ను ఎల్లప్పుడూ కనిపెట్టుకొని ఉంటాడు]</span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Verse 4 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">4</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            ఇదిగో! ఇశ్రాయేలును కాపాడువాడు కన్ను రెప్ప వెయ్యడు, నిద్రపోడు (యెష 40:28). 
-            <span class="amp-text">
-              [తన నిబంధన ప్రజలను తన కనుపాపలా కాపాడే దేవుడు (
-              <span class="ref-link" onclick="openScripture('ద్వితీయోపదేశకాండము 32:10', 'ఎడారి అరణ్యములో... ఆయన వానిని కనుగొనెను, వానికి బుద్ధి చెప్పెను, తన కనుపాపవలె వానిని కాపాడెను.')">ద్వితీ 32:10</span>; 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 17:8', 'నిన్ను ఆశ్రయించువారిని నీ కుడిచేతితో రక్షించువాడా, నన్ను నీ కనుపాపవలె కాపాడుము.')">కీ 17:8</span>), 
-              తాను ఇచ్చిన మాటలను ఎన్నటికి మరువనివాడు - 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 105:8', 'ఆయన తన నిబంధనను యుగయుగములకు జ్ఞాపకము ఉంచుకొనును.')">కీ 105:8</span>; 
-              <span class="ref-link" onclick="openScripture('యెషయా 49:15', 'స్త్రీ తన గర్భమున పుట్టిన బిడ్డను కరుణింపకుండ తన చంటిపిల్ల మరచునా? వారు మరచినను నేను నిన్ను మరవను.')">యెష 49:15</span>].
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Verse 5 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">5</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            యెహోవాయే నన్ను కాపాడుతాడు, నా కుడిచేతి ప్రక్కన యెహోవాయే నాకు ఆశ్రయముగా ఉన్నాడు 
-            <button onclick="openFootnote('అ')" class="inline-flex items-center justify-center px-2 py-0.5 mx-1 rounded-md bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-sm active:scale-95 transition" title="పాదనక వివరణ అ చూడండి">
-              [అ]
-            </button>
-            <span class="amp-text">
-              [
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 16:8', 'ఎల్లప్పుడు యెహోవాను నా యెదుట ఉంచుకొని యున్నాను. ఆయన నా కుడిపార్శ్వమందు ఉన్నాడు గనుక నేను కదల్చబడను.')">కీ 16:8</span>; 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 109:31', 'దరిద్రుని ప్రాణమును తీర్పు తీర్చువారి చేతిలో నుండి రక్షించుటకై ఆయన వాని కుడిపార్శ్వమున నిలుచుచున్నాడు.')">109:31</span>; 
-              <span class="ref-link" onclick="openScripture('యెషయా 25:4', 'నీవు బీదలకు ఆశ్రయముగాను, లేమిలో ఉన్న దరిద్రులకు శ్రమలో ఆశ్రయముగాను ఉన్నావు.')">యెష 25:4</span>]
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Verse 6 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">6</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            పగళ్ళు ఎండ దెబ్బ నాకు తగలకుండా, రాత్రివేళ వెన్నెల దెబ్బ 
-            <span class="amp-text">[చీకటి భయాలు, మానసిక వేదనలు, అనారోగ్యం]</span> 
-            నన్ను తాకకుండా ఆయన కాపాడుతాడు! 
-            <button onclick="openFootnote('ఆ')" class="inline-flex items-center justify-center px-2 py-0.5 mx-1 rounded-md bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-sm active:scale-95 transition" title="పాదనక వివరణ ఆ చూడండి">
-              [ఆ]
-            </button>
-            <span class="amp-text">
-              [
-              <span class="ref-link" onclick="openScripture('నిర్గమకాండము 13:21-22', 'త్రోవలో వారిని నడిపించుటకు యెహోవా పగటివేళ మేఘస్తంభములోను, రాత్రివేళ వెలుగు నిచ్చుటకు అగ్నిస్తంభములోను ఉండి వారి యెదుట నడుచుచు వచ్చెను.')">నిర్గ 13:21-22</span>; 
-              <span class="ref-link" onclick="openScripture('యెషయా 49:10', 'వారికి ఆకలియైనను దప్పికయైనను ఉండదు, ఎండదెబ్బయైనను ఎండయైనను వారికి తగలదు.')">యెష 49:10</span>; 
-              <span class="ref-link" onclick="openScripture('ప్రకటన 7:16', 'వారికి ఇకమీదట ఆకలియైనను దప్పికయైనను ఉండదు, ఎండయైనను ఏ యుష్ణమైనను వారిమీద పడదు.')">ప్ర 7:16</span>]
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Verse 7 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">7</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            ప్రతీ ఆపద నుండి 
-            <span class="amp-text">[నా తండ్రి]</span> 
-            యెహోవాయే నన్ను కాపాడుతాడు; ఆయన నా ప్రాణమును అత్యంత భద్రముగా కాపాడుతాడు! 
-            <span class="amp-text">
-              [
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 91:9-10', 'యెహోవా, నీవే నా ఆశ్రయము... నీకు ఏ హానియు రాదు, ఏ తెగులును నీ గుడారమును సమీపించదు.')">కీ 91:9-10</span>; 
-              <span class="ref-link" onclick="openScripture('2 తిమోతి 4:18', 'ప్రభువు ప్రతి దుష్కార్యము నుండి నన్ను తప్పించి తన పరలోక రాజ్యమునకు నన్ను సురక్షితముగా చేర్చును.')">2 తిమో 4:18</span>; 
-              <span class="ref-link" onclick="openScripture('యోహాను 10:28-29', 'నేను వాటికి నిత్యజీవము నిచ్చుచున్నాను, అవి ఎన్నటికిని నశింపవు, ఎవడును వాటిని నా చేతిలో నుండి అపహరింపడు.')">యోహాను 10:28-29</span>]
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Verse 8 -->
-      <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 hover:border-amber-300 dark:hover:border-slate-700 transition">
-        <div class="flex items-start gap-3">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-amber-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">8</span>
-          <p class="text-slate-800 dark:text-slate-200 font-medium">
-            ఇప్పటి నుండి నిరంతరము -
-            <span class="amp-text">[యుగయుగములు]</span> 
-            నా ప్రయాణం అంతటిలోని నేను వెళ్ళు మొదలుకొని తిరిగి వచ్చు వరకు యెహోవాయే నన్ను కాపాడును! 
-            <span class="amp-text">
-              [
-              <span class="ref-link" onclick="openScripture('ద్వితీయోపదేశకాండము 28:6', 'నీవు లోపలికి వచ్చునప్పుడు దీవింపబడుదువు, వెలుపలికి వెళ్లునప్పుడు దీవింపబడుదువు.')">ద్వితీ 28:6</span>; 
-              <span class="ref-link" onclick="openScripture('కీర్తనలు 113:2', 'ఇది మొదలుకొని యుగయుగములు యెహోవా నామము సన్నుతింపబడును గాక.')">కీ 113:2</span>; 
-              <span class="ref-link" onclick="openScripture('ప్రకటన 1:8', 'అల్ఫాయు ఓమెగయు నేనే అని వర్తమాన భూత భవిష్యత్కాలములలో ఉండువాడును సర్వశక్తిమంతుడునైన ప్రభువు సెలవిచ్చుచున్నాడు.')">ప్రక 1:8</span>]
-            </span>
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Footnotes Static Card Section -->
-    <div class="mt-8 bg-amber-100/50 dark:bg-slate-900/80 rounded-2xl p-5 border border-amber-200 dark:border-slate-800">
-      <h3 class="text-base font-bold text-amber-900 dark:text-amber-400 mb-3 flex items-center gap-2">
-        <i data-lucide="bookmark" class="w-4 h-4"></i>
-        పాదనక వివరణలు (Footnotes):
-      </h3>
-      
-      <div class="space-y-3 text-xs sm:text-sm text-slate-800 dark:text-slate-300 leading-relaxed font-medium">
-        <div class="p-3.5 bg-white dark:bg-slate-800/90 rounded-xl border border-amber-200/60 dark:border-slate-700 shadow-sm">
-          <span class="font-extrabold text-amber-800 dark:text-amber-400 mr-1.5">అ:</span>
-          [పురాతన కాలంలో యుద్ధం చేసేటప్పుడు సైనికులు ఎడమ చేతిలో కవచం పట్టుకునేవారు, కాబట్టి వారి కుడిచేయి రక్షణ లేకుండా ఖాళీగా ఉండేది. ఆ కుడిచేతి వైపు శత్రువు దాడి చేసే అవకాశం ఎక్కువగా ఉండేది. అందుకే "యెహోవా నీ కుడిచేతి ప్రక్కన ఉన్నాడు" అంటే, నీకు అత్యంత బలహీనమైన లేదా రక్షణ లేని స్థానంలో ఆయనే స్వయంగా నిలబడి నిన్ను కప్పుకొని కాపాడుతున్నాడు అని అర్థం!]
-        </div>
-
-        <div class="p-3.5 bg-white dark:bg-slate-800/90 rounded-xl border border-amber-200/60 dark:border-slate-700 shadow-sm">
-          <span class="font-extrabold text-amber-800 dark:text-amber-400 mr-1.5">ఆ:</span>
-          [ఆయన తన ప్రజలపై పగలు మేఘస్తంభముగా, రాత్రి అగ్నిస్తంభముగా ఉండి కాపాడినట్లే నిన్ను అడుగడుగునా రక్షిస్తాడు— నిర్గ 13:21-22; యెష 49:10; ప్రక 7:16]
+      <!-- Footnotes Card -->
+      <div class="mt-8 bg-amber-100/50 dark:bg-slate-900/80 rounded-2xl p-5 border border-amber-200 dark:border-slate-800">
+        <h3 class="text-base font-bold text-amber-900 dark:text-amber-400 mb-3 flex items-center gap-2">
+          <i data-lucide="bookmark" class="w-4 h-4"></i> పాదనక వివరణలు (Footnotes):
+        </h3>
+        <div class="space-y-3 text-xs sm:text-sm text-slate-800 dark:text-slate-300 leading-relaxed font-medium">
+          <div class="p-3.5 bg-white dark:bg-slate-800/90 rounded-xl border border-amber-200/60 dark:border-slate-700 shadow-sm">
+            <span class="font-extrabold text-amber-800 dark:text-amber-400 mr-1.5">అ:</span>
+            [పురాతన కాలంలో యుద్ధం చేసేటప్పుడు సైనికులు ఎడమ చేతిలో కవచం పట్టుకునేవారు, కాబట్టి వారి కుడిచేయి రక్షణ లేకుండా ఖాళీగా ఉండేది. ఆ కుడిచేతి వైపు శత్రువు దాడి చేసే అవకాశం ఎక్కువగా ఉండేది. అందుకే "యెహోవా నీ కుడిచేతి ప్రక్కన ఉన్నాడు" అంటే, నీకు అత్యంత బలహీనమైన లేదా రక్షణ లేని స్థానంలో ఆయనే స్వయంగా నిలబడి నిన్ను కప్పుకొని కాపాడుతున్నాడు అని అర్థం!]
+          </div>
+          <div class="p-3.5 bg-white dark:bg-slate-800/90 rounded-xl border border-amber-200/60 dark:border-slate-700 shadow-sm">
+            <span class="font-extrabold text-amber-800 dark:text-amber-400 mr-1.5">ఆ:</span>
+            [ఆయన తన ప్రజలపై పగలు మేఘస్తంభముగా, రాత్రి అగ్నిస్తంభముగా ఉండి కాపాడినట్లే నిన్ను అడుగడుగునా రక్షిస్తాడు— నిర్గ 13:21-22; యెష 49:10; ప్రక 7:16]
+          </div>
         </div>
       </div>
     </div>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: EXODUS 23:25-26 (నేటి వాగ్దానం)   -->
+    <!-- ========================================== -->
+    <div id="sectionExodus" class="space-y-6 hidden">
+      <!-- Header Banner Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-amber-200/80 dark:border-slate-800 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 via-amber-400 to-amber-600"></div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300 mb-3 border border-emerald-200 dark:border-emerald-900">
+          నేటి ప్రత్యేక వాగ్దానం (Verse of the Day)
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">నిర్గమకాండము 23:25-26</h2>
+        <div class="inline-block text-sm sm:text-base font-semibold text-amber-900 dark:text-amber-300 bg-amber-50/80 dark:bg-slate-800/80 px-4 py-2.5 rounded-xl border border-amber-200/60 dark:border-slate-700 leading-normal">
+          దేవుని నిబంధన మరియు జీవపు వాగ్దానములు <span class="amp-text text-xs sm:text-sm font-normal">[హీబ్రూ మూలభాష ఆధారిత వివరణాత్మక శైలి]</span>
+        </div>
+      </div>
+
+      <!-- Verses Container -->
+      <div id="versesExodus" class="space-y-4 text-base sm:text-lg leading-relaxed">
+        <!-- V25 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">25</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              మీరు మీ పూర్ణ హృదయముతో <span class="amp-text">[సంపూర్ణ విధేయతతో]</span>, <span class="amp-text">[నేనే]</span> మీ దేవుడైన యెహోవాను <span class="amp-text">[అని నమ్మి నన్నుమాత్రమే]</span> సేవించినట్లు అయితే <span class="amp-text">[ఆరాధించినయెడల; నా మాటకు లోబడినయెడల]</span> — నేను మిమ్ములను సమస్త సమృద్ధియైన ఆహారముతో <span class="amp-text">[శారీరిక, ఆధ్యాత్మిక పోషణతో]</span>, నీటితో <span class="amp-text">[జీవజలములతో]</span> ఆశీర్వదిస్తాను <span class="amp-text">[<span class="ref-link" onclick="openScripture('నిర్గమకాండము 15:26', 'నేనే మీ వైద్యుడైన యెహోవాను.')">నిర్గ 15:26</span>; <span class="ref-link" onclick="openScripture('ద్వితీయోపదేశకాండము 7:12-15', 'యెహోవా నిన్ను అన్ని రోగములలో నుండి కాపాడును.')">ద్వితీ 7:12-15</span>]</span>; అంతేకాదు మీ మధ్య నుండి సమస్త రోగములను, వ్యాధులను పూర్తిగా తొలగించివేస్తాను! <span class="amp-text">[<span class="ref-link" onclick="openScripture('కీర్తనలు 103:3', 'ఆయన నీ దోషములన్నిటిని క్షమించువాడు, నీ రోగములన్నిటిని కుదుర్చువాడు.')">కీ 103:3</span>; <span class="ref-link" onclick="openScripture('కీర్తనలు 107:20', 'ఆయన తన వాక్యము పంపి వారిని స్వస్థపరచెను.')">107:20</span>]</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- V26 -->
+        <div class="verse-card bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-amber-100 dark:border-slate-800 transition">
+          <div class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-600 text-white font-extrabold text-xs shrink-0 mt-1 shadow-sm">26</span>
+            <p class="text-slate-800 dark:text-slate-200 font-medium">
+              మీ దేశములో <span class="amp-text">[మీ కుటుంబంలో, మీ వంశములో]</span> ఏ స్త్రీయు సంతానము లేనిదిగా ఉండదు <span class="amp-text">[వంధ్యత్వ శాపములు తొలగిపోవును — <span class="ref-link" onclick="openScripture('ద్వితీయోపదేశకాండము 7:14', 'మీలో ఏ పురుషుడునైనను స్త్రీయైనను... గొడ్డుబోయినవాడుండుటలేదు.')">ద్వితీ 7:14</span>]</span>; నేను మీ బ్రతుకు దినములను పరిపూర్ణం చేస్తాను <span class="amp-text">[మిమ్మల్ని దీర్ఘాయుషుతో సంతృప్తి పరుస్తాను!]</span> <span class="amp-text">[<span class="ref-link" onclick="openScripture('కీర్తనలు 91:16', 'దీర్ఘాయువుచేత ఆయనను తృప్తిపరచెదను.')">కీ 91:16</span>]</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explanatory Card -->
+      <div class="mt-8 bg-emerald-50/60 dark:bg-slate-900/80 rounded-2xl p-5 border border-emerald-200 dark:border-slate-800">
+        <h3 class="text-base font-bold text-emerald-900 dark:text-emerald-400 mb-3 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4"></i> హీబ్రూ మూలభాష విశేషాలు (Hebrew Insights):
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-300 leading-relaxed font-medium">
+          ఈ వచనంలో వాడబడిన <strong>'అబాద్' (Service/Worship)</strong> మరియు <strong>'మహలా' (Sickness/Plague)</strong> పదాలు భౌతిక పోషణను, ఆరోగ్య భద్రతను, అలాగే వంశాభివృద్ధిని దేవుడు తన నిబంధన ప్రజలకు స్వయంగా వాగ్దానం చేస్తున్నాయని తెలియజేస్తున్నాయి. ఇది మన విశ్వాసాన్ని బలపరిచే అద్భుతమైన నిబంధన వాక్యం!
+        </p>
+      </div>
+    </div>
+
   </main>
 
   <!-- Interactive Pop-up Modal -->
   <div id="modalOverlay" onclick="closeModal()" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300">
     <div id="modalCard" onclick="event.stopPropagation()" class="bg-white dark:bg-slate-900 w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl border border-amber-200 dark:border-slate-800 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300 max-h-[85vh] overflow-y-auto">
-      
-      <!-- Modal Header -->
       <div class="flex items-center justify-between pb-3 mb-4 border-b border-amber-100 dark:border-slate-800">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300 flex items-center justify-center font-bold text-sm">
             <i data-lucide="book-open-check" class="w-4 h-4"></i>
           </div>
-          <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-            వివరణ
-          </h3>
+          <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">వివరణ</h3>
         </div>
         <button onclick="closeModal()" class="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-
-      <!-- Modal Body Text -->
-      <div id="modalContent" class="text-base text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
-        వివరణ లోడ్ అవుతోంది...
-      </div>
-
-      <!-- Modal Close Button -->
+      <div id="modalContent" class="text-base text-slate-700 dark:text-slate-200 leading-relaxed font-medium">వివరణ లోడ్ అవుతోంది...</div>
       <div class="mt-6">
-        <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-[0.98] text-white font-bold text-sm shadow-md transition">
-          మూసివేయి
-        </button>
+        <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-[0.98] text-white font-bold text-sm shadow-md transition">మూసివేయి</button>
       </div>
     </div>
   </div>
@@ -388,23 +367,46 @@
 
   <!-- Footer -->
   <footer class="py-6 border-t border-amber-200/50 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400 font-medium">
-    <p>పరిశుద్ధ జీవ గ్రంథం- వివరణాత్మక శైలి తెలుగు • కీర్తనలు 121</p>
+    <p>పరిశుద్ధ జీవ గ్రంథం- వివరణాత్మక శైలి తెలుగు • ఇంటరాక్టివ్ బైబిల్ స్టడీ</p>
   </footer>
 
   <!-- App Script Logic -->
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Telugu Footnote Data [అ] and [ఆ]
+    let currentSection = 'psalm'; // 'psalm' or 'exodus'
+
+    function switchSection(section) {
+      currentSection = section;
+      const tabPsalm = document.getElementById('tabPsalm');
+      const tabExodus = document.getElementById('tabExodus');
+      const sectionPsalm = document.getElementById('sectionPsalm');
+      const sectionExodus = document.getElementById('sectionExodus');
+      const subHeaderTitle = document.getElementById('subHeaderTitle');
+
+      if (section === 'psalm') {
+        tabPsalm.className = "flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-bold transition bg-amber-600 text-white shadow-sm";
+        tabExodus.className = "flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-bold transition text-slate-700 dark:text-slate-300 hover:bg-amber-100 dark:hover:bg-slate-700";
+        sectionPsalm.classList.remove('hidden');
+        sectionExodus.classList.add('hidden');
+        subHeaderTitle.innerText = "కీర్తనలు 121";
+      } else {
+        tabExodus.className = "flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-bold transition bg-emerald-600 text-white shadow-sm";
+        tabPsalm.className = "flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-bold transition text-slate-700 dark:text-slate-300 hover:bg-amber-100 dark:hover:bg-slate-700";
+        sectionExodus.classList.remove('hidden');
+        sectionPsalm.classList.add('hidden');
+        subHeaderTitle.innerText = "నిర్గమకాండము 23:25-26 (నేటి వాగ్దానం)";
+      }
+    }
+
+    // Footnote Data
     const footnotesData = {
       'అ': '[పురాతన కాలంలో యుద్ధం చేసేటప్పుడు సైనికులు ఎడమ చేతిలో కవచం పట్టుకునేవారు, కాబట్టి వారి కుడిచేయి రక్షణ లేకుండా ఖాళీగా ఉండేది. ఆ కుడిచేతి వైపు శత్రువు దాడి చేసే అవకాశం ఎక్కువగా ఉండేది. అందుకే "యెహోవా నీ కుడిచేతి ప్రక్కన ఉన్నాడు" అంటే, నీకు అత్యంత బలహీనమైన లేదా రక్షణ లేని స్థానంలో ఆయనే స్వయంగా నిలబడి నిన్ను కప్పుకొని కాపాడుతున్నాడు అని అర్థం!]',
       'ఆ': '[ఆయన తన ప్రజలపై పగలు మేఘస్తంభముగా, రాత్రి అగ్నిస్తంభముగా ఉండి కాపాడినట్లే నిన్ను అడుగడుగునా రక్షిస్తాడు— నిర్గ 13:21-22; యెష 49:10; ప్రక 7:16]'
     };
 
-    // Font Adjustment Logic
     let currentFontSizeStep = 0;
-    const baseFontSize = 1.125; // 18px
+    const baseFontSize = 1.125;
 
     function adjustFontSize(dir) {
       if ((dir === 1 && currentFontSizeStep < 4) || (dir === -1 && currentFontSizeStep > -2)) {
@@ -420,16 +422,14 @@
 
     function applyFontSize() {
       const newSize = baseFontSize + (currentFontSizeStep * 0.125);
-      const container = document.getElementById('versesContainer');
-      container.style.fontSize = `${newSize}rem`;
+      document.getElementById('versesPsalm').style.fontSize = `${newSize}rem`;
+      document.getElementById('versesExodus').style.fontSize = `${newSize}rem`;
       showToast(`అక్షరాల పరిమాణం: ${Math.round((newSize/baseFontSize)*100)}%`);
     }
 
-    // Theme Switch Logic
     function toggleTheme() {
       const isDark = document.documentElement.classList.toggle('dark');
       const themeIcon = document.getElementById('themeIcon');
-      
       if (isDark) {
         themeIcon.setAttribute('data-lucide', 'sun');
         localStorage.setItem('bible_app_theme', 'dark');
@@ -440,20 +440,16 @@
       lucide.createIcons();
     }
 
-    // Load theme setting
     if (localStorage.getItem('bible_app_theme') === 'dark' || (!('bible_app_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
       document.getElementById('themeIcon')?.setAttribute('data-lucide', 'sun');
     }
 
-    // Modal Control Logic
     function openModal(title, text) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalContent').innerText = text;
-      
       const overlay = document.getElementById('modalOverlay');
       const card = document.getElementById('modalCard');
-
       overlay.classList.remove('opacity-0', 'pointer-events-none');
       card.classList.remove('translate-y-full', 'sm:scale-95');
       card.classList.add('translate-y-0', 'sm:scale-100');
@@ -462,7 +458,6 @@
     function closeModal() {
       const overlay = document.getElementById('modalOverlay');
       const card = document.getElementById('modalCard');
-
       card.classList.remove('translate-y-0', 'sm:scale-100');
       card.classList.add('translate-y-full', 'sm:scale-95');
       overlay.classList.add('opacity-0', 'pointer-events-none');
@@ -476,70 +471,24 @@
       openModal(`వాక్య సూచిక: ${ref}`, text);
     }
 
-    // Share the hosted app URL with others; fall back to copying the link.
-    async function shareApp() {
-      const shareData = {
-        title: 'పరిశుద్ధ జీవ గ్రంథం - కీర్తనలు 121',
-        text: 'కీర్తనలు 121 — వివరణాత్మక శైలి తెలుగు బైబిల్ అధ్యాయం',
-        url: window.location.href
-      };
-      try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(window.location.href);
-          showToast('యాప్ లింక్ కాపీ చేయబడింది!');
-        } else {
-          const temp = document.createElement('textarea');
-          temp.value = window.location.href;
-          document.body.appendChild(temp);
-          temp.select();
-          document.execCommand('copy');
-          temp.remove();
-          showToast('యాప్ లింక్ కాపీ చేయబడింది!');
-        }
-      } catch (err) {
-        if (err && err.name !== 'AbortError') showToast('షేర్ చేయడం సాధ్యం కాలేదు. లింక్‌ను కాపీ చేయండి.');
+    function copyCurrentSection() {
+      let textToCopy = "";
+      if (currentSection === 'psalm') {
+        textToCopy = `కీర్తనలు 121\nఆరోహణ కీర్తన [పరిశుద్ధ పట్టణానికి ప్రయాణించే యాత్రికుల కీర్తన]\n\n1. నేను సహాయం కోసం పర్వతాల వైపు కన్నులు ఎత్తి ఎదురుచూస్తున్నాను! ఎక్కడ నుండి వస్తుంది అని? [కీ 146:3]\n2. నా సహాయం భూమిని ఆకాశమును సృష్టించిన యెహోవా నుండే.\n3. నా అడుగులు తడబడకుండా కాపాడుతాడు; నన్ను కాపాడేవాడు నిద్రపోడు.\n4. ఇదిగో! ఇశ్రాయేలును కాపాడువాడు కన్ను రెప్ప వెయ్యడు, నిద్రపోడు.\n5. యెహోవాయే నన్ను కాపాడుతాడు, నా కుడిచేతి ప్రక్కన యెహోవాయే నాకు ఆశ్రయముగా ఉన్నాడు [అ].\n6. పగళ్ళు ఎండ దెబ్బ నాకు తగలకుండా, రాత్రివేళ వెన్నెల దెబ్బ నన్ను తాకకుండా ఆయన కాపాడుతాడు! [ఆ]\n7. ప్రతీ ఆపద నుండి యెహోవాయే నన్ను కాపాడుతాడు; ఆయన నా ప్రాణమును అత్యంత భద్రముగా కాపాడుతాడు!\n8. ఇప్పటి నుండి నిరంతరము నా ప్రయాణం అంతటిలోని నేను వెళ్ళు మొదలుకొని తిరిగి వచ్చు వరకు యెహోవాయే నన్ను కాపాడును!`;
+      } else {
+        textToCopy = `నిర్గమకాండము 23:25-26 (నేటి వాగ్దానం)\n\n25. మీరు మీ పూర్ణ హృదయముతో [సంపూర్ణ విధేయతతో], నేనే మీ దేవుడైన యెహోవాను [అని నమ్మి నన్నుమాత్రమే] సేవించినట్లు అయితే — నేను మిమ్ములను సమస్త సమృద్ధియైన ఆహారముతో, నీటితో ఆశీర్వదిస్తాను; అంతేకాదు మీ మధ్య నుండి సమస్త రోగములను, వ్యాధులను పూర్తిగా తొలగించివేస్తాను!\n\n26. మీ దేశములో ఏ స్త్రీయు సంతానము లేనిదిగా ఉండదు [వంధ్యత్వ శాపములు తొలగిపోవును]; నేను మీ బ్రతుకు దినములను పరిపూర్ణం చేస్తాను [మిమ్మల్ని దీర్ఘాయుషుతో సంతృప్తి పరుస్తాను!]`;
       }
-    }
-
-    // Copy Verbatim Text to Clipboard
-    function copyChapter() {
-      const verbatimText = `కీర్తనలు 121
-ఆరోహణ కీర్తన [పరిశుద్ధ పట్టణానికి (పరలోక రాజ్యానికి) ప్రయాణించే యాత్రికుల కీర్తన]
-
-1. నేను సహాయం కోసం పర్వతాల వైపు కన్నులు ఎత్తి ఎదురుచూస్తున్నాను! ఎక్కడ నుండి వస్తుంది అని? [బలవంతులైన మనుషుల దగ్గర నుండా? లోక అధికారుల నుండా? లోకసంపద నుండా? — కీ 146:3; 48:6–7; యిర్మీ 17:5]
-
-2. [కాదు!] నా సహాయం భూమిని ఆకాశమును [తన మాట ద్వారా — ఆది 1:6-10; కీ 33:6-9] సృష్టించిన [నా తండ్రియైన] యెహోవా నుండే.
-
-3. నా అడుగులు తడబడకుండా కాపాడుతాడు; నన్ను కాపాడేవాడు నిద్రపోడు.[ఆయన నన్ను ఎల్లప్పుడూ కనిపెట్టుకొని ఉంటాడు]
-
-4. ఇదిగో! ఇశ్రాయేలును కాపాడువాడు కన్ను రెప్ప వెయ్యడు, నిద్రపోడు (యెష 40:28). [తన నిబంధన ప్రజలను తన కనుపాపలా కాపాడే దేవుడు (ద్వితీ 32:10; కీ 17:8), తాను ఇచ్చిన మాటలను ఎన్నటికి మరువనివాడు - కీ 105:8; యెష 49:15].
-
-5. యెహోవాయే నన్ను కాపాడుతాడు, నా కుడిచేతి ప్రక్కన యెహోవాయే నాకు ఆశ్రయముగా ఉన్నాడు [అ][కీ 16:8; 109:31; యెష 25:4]
-
-6. పగళ్ళు ఎండ దెబ్బ నాకు తగలకుండా, రాత్రివేళ వెన్నెల దెబ్బ [చీకటి భయాలు, మానసిక వేదనలు, అనారోగ్యం] నన్ను తాకకుండా ఆయన కాపాడుతాడు! [ఆ][ నిర్గ 13:21-22; యెష 49:10; ప్ర 7:16]
-
-7. ప్రతీ ఆపద నుండి [నా తండ్రి] యెహోవాయే నన్ను కాపాడుతాడు; ఆయన నా ప్రాణమును అత్యంత భద్రముగా కాపాడుతాడు! [కీ 91:9-10; 2 తిమో 4:18; యోహాను 10:28-29]
-
-8. ఇప్పటి నుండి నిరంతరము -[యుగయుగములు] నా ప్రయాణం అంతటిలోని నేను వెళ్ళు మొదలుకొని తిరిగి వచ్చు వరకు యెహోవాయే నన్ను కాపాడును! [ద్వితీ 28:6; కీ 113:2; ప్రక 1:8]
-
-
-అ: [పురాతన కాలంలో యుద్ధం చేసేటప్పుడు సైనికులు ఎడమ చేతిలో కవచం పట్టుకునేవారు, కాబట్టి వారి కుడిచేయి రక్షణ లేకుండా ఖాళీగా ఉండేది. ఆ కుడిచేతి వైపు శత్రువు దాడి చేసే అవకాశం ఎక్కువగా ఉండేది. అందుకే "యెహోవా నీ కుడిచేతి ప్రక్కన ఉన్నాడు" అంటే, నీకు అత్యంత బలహీనమైన లేదా రక్షణ లేని స్థానంలో ఆయనే స్వయంగా నిలబడి నిన్ను కప్పుకొని కాపాడుతున్నాడు అని అర్థం!]
-
-ఆ: [ఆయన తన ప్రజలపై పగలు మేఘస్తంభముగా, రాత్రి అగ్నిస్తంభముగా ఉండి కాపాడినట్లే నిన్ను అడుగడుగునా రక్షిస్తాడు— నిర్గ 13:21-22; యెష 49:10; ప్రక 7:16]`;
 
       const tempTextArea = document.createElement("textarea");
-      tempTextArea.value = verbatimText;
+      tempTextArea.value = textToCopy;
       document.body.appendChild(tempTextArea);
       tempTextArea.select();
       document.execCommand("copy");
       document.body.removeChild(tempTextArea);
 
-      showToast("అధ్యాయం మొత్తం కాపీ చేయబడింది!");
+      showToast("టెక్స్ట్ కాపీ చేయబడింది!");
     }
 
-    // Toast Notification
     function showToast(message) {
       const toast = document.getElementById('toast');
       document.getElementById('toastMsg').innerText = message;
@@ -549,7 +498,6 @@
       }, 2500);
     }
 
-    // Read Aloud SpeechSynthesis Logic
     let isSpeaking = false;
     let synth = window.speechSynthesis;
 
@@ -558,7 +506,6 @@
         showToast("మీ బ్రౌజర్ ఆడియో సౌలభ్యానికి మద్దతు ఇవ్వడం లేదు.");
         return;
       }
-
       const audioBtnText = document.getElementById('audioBtnText');
       const audioIcon = document.getElementById('audioIcon');
 
@@ -570,15 +517,9 @@
         lucide.createIcons();
         showToast("ఆడియో నిలిపివేయబడింది");
       } else {
-        const textToRead = `కీర్తనలు 121. ఆరోహణ కీర్తన. 
-          1. నేను సహాయం కోసం పర్వతాల వైపు కన్నులు ఎత్తి ఎదురుచూస్తున్నాను! ఎక్కడ నుండి వస్తుంది అని?
-          2. నా సహాయం భూమిని ఆకాశమును సృష్టించిన యెహోవా నుండే.
-          3. నా అడుగులు తడబడకుండా కాపాడుతాడు; నన్ను కాపాడేవాడు నిద్రపోడు.
-          4. ఇదిగో! ఇశ్రాయేలును కాపాడువాడు కన్ను రెప్ప వెయ్యడు, నిద్రపోడు.
-          5. యెహోవాయే నన్ను కాపాడుతాడు, నా కుడిచేతి ప్రక్కన యెహోవాయే నాకు ఆశ్రయముగా ఉన్నాడు.
-          6. పగళ్ళు ఎండ దెబ్బ నాకు తగలకుండా, రాత్రివేళ వెన్నెల దెబ్బ నన్ను తాకకుండా ఆయన కాపాడుతాడు!
-          7. ప్రతీ ఆపద నుండి యెహోవాయే నన్ను కాపాడుతాడు; ఆయన నా ప్రాణమును అత్యంత భద్రముగా కాపాడుతాడు!
-          8. ఇప్పటి నుండి నిరంతరము నా ప్రయాణం అంతటిలోని నేను వెళ్ళు మొదలుకొని తిరిగి వచ్చు వరకు యెహోవాయే నన్ను కాపాడును!`;
+        let textToRead = currentSection === 'psalm' ? 
+          `కీర్తనలు 121. ఆరోహణ కీర్తన. 1. నేను సహాయం కోసం పర్వతాల వైపు కన్నులు ఎత్తి ఎదురుచూస్తున్నాను! ఎక్కడ నుండి వస్తుంది అని? 2. నా సహాయం భూమిని ఆకాశమును సృష్టించిన యెహోవా నుండే. 3. నా అడుగులు తడబడకుండా కాపాడుతాడు; నన్ను కాపాడేవాడు నిద్రపోడు. 4. ఇదిగో! ఇశ్రాయేలును కాపాడువాడు కన్ను రెప్ప వెయ్యడు, నిద్రపోడు. 5. యెహోవాయే నన్ను కాపాడుతాడు, నా కుడిచేతి ప్రక్కన యెహోవాయే నాకు ఆశ్రయముగా ఉన్నాడు. 6. పగళ్ళు ఎండ దెబ్బ నాకు తగలకుండా, రాత్రివేళ వెన్నెల దెబ్బ నన్ను తాకకుండా ఆయన కాపాడుతాడు! 7. ప్రతీ ఆపద నుండి యెహోవాయే నన్ను కాపాడుతాడు; ఆయన నా ప్రాణమును అత్యంత భద్రముగా కాపాడుతాడు! 8. ఇప్పటి నుండి నిరంతరము నా ప్రయాణం అంతటిలోని నేను వెళ్ళు మొదలుకొని తిరిగి వచ్చు వరకు యెహోవాయే నన్ను కాపాడును!` :
+          `నిర్గమకాండము 23:25 మరియు 26 వచనాలు. 25. మీరు మీ పూర్ణ హృదయముతో సంపూర్ణ విధేయతతో, నేనే మీ దేవుడైన యెహోవాను అని నమ్మి నన్నుమాత్రమే సేవించినట్లు అయితే — నేను మిమ్ములను సమస్త సమృద్ధియైన ఆహారముతో, నీటితో ఆశీర్వదిస్తాను; అంతేకాదు మీ మధ్య నుండి సమస్త రోగములను, వ్యాధులను పూర్తిగా తొలగించివేస్తాను! 26. మీ దేశములో ఏ స్త్రీయు సంతానము లేనిదిగా ఉండదు; వంధ్యత్వ శాపములు తొలగిపోవును. నేను మీ బ్రతుకు దినములను పరిపూర్ణం చేస్తాను, మిమ్మల్ని దీర్ఘాయుషుతో సంతృప్తి పరుస్తాను!`;
 
         const utterance = new SpeechSynthesisUtterance(textToRead);
         utterance.lang = 'te-IN';
